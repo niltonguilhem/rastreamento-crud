@@ -1,21 +1,28 @@
 package com.example.rastreamento.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
+import org.springframework.data.cassandra.core.mapping.Table;
 
-@Entity
+@Table("clientes")
 public class Clientes {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @PrimaryKeyColumn(
+            name = "id",
+            type = PrimaryKeyType.PARTITIONED)
     private Long id;
+    @Column
     private String bairro;
+    @Column
     private String cidade;
+    @Column
     private String nome;
+    @Column
     private Long numero_logradouro;
+    @Column
     private String rua;
+    @Column
     private String telefone;
 
     public Clientes(){

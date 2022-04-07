@@ -22,8 +22,8 @@ public class ClientesService {
 
     public Iterable<Clientes> getClientesByCidade(String cidade) {return rep.findByCidade(cidade);}
 
-    public  Clientes insert (Clientes clientes){
-        Assert.isNull(clientes.getId(), "Não foi possível inserir o registro");
+    public  Clientes insert(Clientes clientes){
+        //Assert.isNull(clientes.getId(), "Não foi possível inserir o registro");
         return rep.save(clientes);
     }
 
