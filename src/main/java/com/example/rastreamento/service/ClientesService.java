@@ -16,44 +16,33 @@ public class ClientesService {
     @Autowired
     private ClientesRepository rep;
 
-    public Iterable<Clientes> getRastreamento() { return rep.findAll(); }
-
-    public Optional<Clientes> getClientesByid(Long id){return rep.findById(id);}
-
-    public Iterable<Clientes> getClientesByCidade(String cidade) {return rep.findByCidade(cidade);}
-
     public  Clientes insert(Clientes clientes){
-        //Assert.isNull(clientes.getId(), "Não foi possível inserir o registro");
         return rep.save(clientes);
     }
-
-    public Clientes update(Clientes clientes, Long id) {
-        Assert.notNull(id, "Não foi possível atualizar o registro");
-
-        //Busca o item no banco de dados estoque
-        Optional<Clientes> optional = getClientesByid(id);
-        if (optional.isPresent()){
-            Clientes db = optional.get();
-            //Copiar as propriedades
-            db.setCidade(clientes.getCidade());
-            System.out.println("Item id: " + db.getId());
-
-            //Atualiza item de estoque
-            rep.save(db);
-
-            return db;
-
-        } else {
-            throw new RuntimeException("Não foi possível atualizar o registro");
+    public Iterable<Clientes> findAll(){
+        return rep.findAll();
+    }
+    public Clientes findById(Long id){
+        try {
+            return rep.findById(id).get();
+        } catch (Exception ex){
+            return null;
         }
+    }
+    public Clientes update(Clientes clientes, Long id) {
+        Clientes clientesEntity = new Clientes(id, clientes.getBairro(), clientes.getCidade(),
+                clientes.getNome(), clientes.getNumero_logradouro(), clientes.getRua(),
+                clientes.getTelefone());
+        if(rep.findById(id).isPresent()) {
+            rep.save(clientesEntity);
+            return clientesEntity;
+        }
+        throw new RuntimeException("id não existe");
 
     }
 
     public void delete(Long id){
-        Optional<Clientes> clientes = getClientesByid(id);
-        if (clientes.isPresent()){
-            rep.deleteById(id);
-        }
+       rep.deleteById(id);
     }
 
     public List<Clientes> getRastreamentoFake(){

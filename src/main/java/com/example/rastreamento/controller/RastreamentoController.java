@@ -14,40 +14,29 @@ public class RastreamentoController {
     private ClientesService service;
 
     @GetMapping()
-    public Iterable<Clientes> get(){
-        return service.getRastreamento();
+    public Iterable<Clientes> getAllClientes(){
+        return service.findAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<Clientes> get (@PathVariable("id")Long id){
-        return service.getClientesByid(id);
-    }
-
-    @GetMapping("/cidade/{cidade}")
-    public Optional<Clientes> getClientesByCidade (@PathVariable("cidade") Long cidade){
-        return service.getClientesByid(cidade);
+    public Clientes getById(@PathVariable("id")Long id){
+        return service.findById(id);
     }
 
     @PostMapping
     public String post(@RequestBody Clientes clientes){
         Clientes c = service.insert(clientes);
-
         return "Cadastro salvo com sucesso: " + c.getId();
     }
 
     @PutMapping("/{id}")
-    public String put (@PathVariable("id") Long id, @RequestBody Clientes clientes) {
-
-        Clientes c = service.update(clientes, id);
-
-        return  "Cadastro atualizado com sucesso: "+ c.getId();
+    public Clientes put(@PathVariable("id") Long id, @RequestBody Clientes clientes) {
+        return service.update(clientes, id);
     }
 
     @DeleteMapping("/{id}")
     public String delete (@PathVariable ("id") Long id) {
-
         service.delete(id);
-
         return "Cadastro deletado com sucesso.";
     }
 

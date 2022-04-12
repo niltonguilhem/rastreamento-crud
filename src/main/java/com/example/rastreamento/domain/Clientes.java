@@ -1,5 +1,6 @@
 package com.example.rastreamento.domain;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
@@ -8,6 +9,7 @@ import org.springframework.data.cassandra.core.mapping.Table;
 @Table("clientes")
 public class Clientes {
 
+    @Id
     @PrimaryKeyColumn(
             name = "id",
             type = PrimaryKeyType.PARTITIONED)
