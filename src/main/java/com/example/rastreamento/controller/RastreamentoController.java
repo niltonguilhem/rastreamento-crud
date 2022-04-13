@@ -1,12 +1,14 @@
 package com.example.rastreamento.controller;
 
-import com.example.rastreamento.domain.Clientes;
+import com.example.rastreamento.model.Clientes;
 import com.example.rastreamento.service.ClientesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.UUID;
 
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/api/v1/rastreamento")
 public class RastreamentoController {
@@ -19,24 +21,19 @@ public class RastreamentoController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Clientes> get (@PathVariable("id")Long id){
+    public Optional<Clientes> get (@PathVariable("id") UUID id){
         return service.getClientesByid(id);
-    }
-
-    @GetMapping("/cidade/{cidade}")
-    public Optional<Clientes> getClientesByCidade (@PathVariable("cidade") Long cidade){
-        return service.getClientesByid(cidade);
     }
 
     @PostMapping
     public String post(@RequestBody Clientes clientes){
-        Clientes c = service.insert(clientes);
+        Clientes c = service.save(clientes);
 
         return "Cadastro salvo com sucesso: " + c.getId();
     }
 
     @PutMapping("/{id}")
-    public String put (@PathVariable("id") Long id, @RequestBody Clientes clientes) {
+    public String put (@PathVariable("id") UUID id, @RequestBody Clientes clientes) {
 
         Clientes c = service.update(clientes, id);
 
@@ -44,7 +41,7 @@ public class RastreamentoController {
     }
 
     @DeleteMapping("/{id}")
-    public String delete (@PathVariable ("id") Long id) {
+    public String delete (@PathVariable ("id") UUID id) {
 
         service.delete(id);
 

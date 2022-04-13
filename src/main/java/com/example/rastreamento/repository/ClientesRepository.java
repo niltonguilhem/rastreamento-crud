@@ -1,8 +1,12 @@
 package com.example.rastreamento.repository;
 
-import com.example.rastreamento.domain.Clientes;
-import org.springframework.data.repository.CrudRepository;
+import com.example.rastreamento.model.Clientes;
+import org.springframework.data.cassandra.repository.CassandraRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ClientesRepository extends CrudRepository<Clientes, Long> {
-    Iterable<Clientes> findByCidade(String cidade);
+import java.util.UUID;
+
+@Repository
+public interface ClientesRepository extends CassandraRepository<Clientes, UUID> {
+
 }

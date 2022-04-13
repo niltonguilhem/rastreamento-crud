@@ -1,42 +1,41 @@
-package com.example.rastreamento.domain;
+package com.example.rastreamento.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
-@Entity
+import org.springframework.data.annotation.Id;
+import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
+import org.springframework.data.cassandra.core.mapping.Column;
+import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
+import org.springframework.data.cassandra.core.mapping.Table;
+
+import java.util.UUID;
+
+@Table ("clientes")
 public class Clientes {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @PrimaryKeyColumn(
+            name = "id",
+            type = PrimaryKeyType.PARTITIONED)
+    private UUID id;
+    @Column
     private String bairro;
+    @Column
     private String cidade;
+    @Column
     private String nome;
-    private Long numero_logradouro;
+    @Column
+    private int numero_logradouro;
+    @Column
     private String rua;
+    @Column
     private String telefone;
 
-    public Clientes(){
 
-    }
-
-    public Clientes(Long id, String bairro, String cidade, String nome, Long numero_logradouro, String rua, String telefone){
-        this.id = id;
-        this.bairro = bairro;
-        this.cidade = cidade;
-        this.nome = nome;
-        this.numero_logradouro = numero_logradouro;
-        this.rua = rua;
-        this.telefone = telefone;
-    }
-
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -64,11 +63,11 @@ public class Clientes {
         this.nome = nome;
     }
 
-    public Long getNumero_logradouro() {
+    public int getNumero_logradouro() {
         return numero_logradouro;
     }
 
-    public void setNumero_logradouro(Long numero_logradouro) {
+    public void setNumero_logradouro(int numero_logradouro) {
         this.numero_logradouro = numero_logradouro;
     }
 
