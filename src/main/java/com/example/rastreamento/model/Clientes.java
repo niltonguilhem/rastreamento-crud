@@ -1,6 +1,7 @@
 package com.example.rastreamento.model;
 
 
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
 import org.springframework.data.cassandra.core.mapping.Column;
@@ -11,7 +12,6 @@ import java.util.UUID;
 
 @Table ("clientes")
 public class Clientes {
-
     @Id
     @PrimaryKeyColumn(
             name = "id",
@@ -28,7 +28,7 @@ public class Clientes {
     @Column
     private String rua;
     @Column
-    private String telefone;
+    private int telefone;
 
 
     public UUID getId() {
@@ -79,11 +79,11 @@ public class Clientes {
         this.rua = rua;
     }
 
-    public String getTelefone() {
+    public int getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
+    public void setTelefone(int telefone) {
         this.telefone = telefone;
     }
 }
